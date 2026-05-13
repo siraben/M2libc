@@ -44,13 +44,13 @@ void* malloc(int size);
 
 unsigned read(FILE* f, char* buffer, unsigned count) {
 	asm(
-			"mov_rax, %0"
-			"lea_rsi,[rsp+DWORD] %16"
-			"mov_rsi,[rsi]"
-			"lea_rdx,[rsp+DWORD] %8"
-			"mov_rdx,[rdx]"
-			"lea_rdi,[rsp+DWORD] %24"
-			"mov_rdi,[rdi]"
+			"mov rax, 0"
+			"lea rsi, [rsp+16]"
+			"mov rsi, [rsi]"
+			"lea rdx, [rsp+8]"
+			"mov rdx, [rdx]"
+			"lea rdi, [rsp+24]"
+			"mov rdi, [rdi]"
 			"syscall");
 }
 
@@ -77,13 +77,13 @@ unsigned fread(char* buffer, unsigned size, unsigned count, FILE* f) {
 
 unsigned write(FILE* f, char* buffer, unsigned count) {
 	asm(
-			"mov_rax, %1"
-			"lea_rsi,[rsp+DWORD] %16"
-			"mov_rsi,[rsi]"
-			"lea_rdx,[rsp+DWORD] %8"
-			"mov_rdx,[rdx]"
-			"lea_rdi,[rsp+DWORD] %24"
-			"mov_rdi,[rdi]"
+			"mov rax, 1"
+			"lea rsi, [rsp+16]"
+			"mov rsi, [rsi]"
+			"lea rdx, [rsp+8]"
+			"mov rdx, [rdx]"
+			"lea rdi, [rsp+24]"
+			"mov rdi, [rdi]"
 			"syscall");
 }
 
@@ -120,13 +120,13 @@ void fputs(char* s, FILE* f)
 
 FILE* open(char* name, int flag, int mode)
 {
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %2"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 2"
 	    "syscall");
 }
 
@@ -152,9 +152,9 @@ FILE* fopen(char* filename, char* mode)
 
 int close(int fd)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %3"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 3"
 	    "syscall");
 }
 
@@ -166,11 +166,11 @@ int fclose(FILE* stream)
 
 int brk(void *addr)
 {
-	asm("mov_rax,[rsp+DWORD] %8"
-	    "push_rax"
-	    "mov_rax, %12"
-	    "pop_rbx"
-	    "mov_rdi,rbx"
+	asm("mov rax, [rsp+8]"
+	    "push rax"
+	    "mov rax, 12"
+	    "pop rbx"
+	    "mov rdi, rbx"
 	    "syscall");
 }
 
@@ -221,8 +221,8 @@ void free(void* l)
 
 void exit(int value)
 {
-	asm("pop_rbx"
-	    "pop_rdi"
-	    "mov_rax, %0x3C"
+	asm("pop rbx"
+	    "pop rdi"
+	    "mov rax, 0x3C"
 	    "syscall");
 }

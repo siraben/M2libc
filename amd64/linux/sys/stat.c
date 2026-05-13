@@ -39,55 +39,55 @@
 
 int chmod(char *pathname, int mode)
 {
-	asm("lea_rdi,[rsp+DWORD] %16"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %8"
-	    "mov_rsi,[rsi]"
-	    "mov_rax, %90"
+	asm("lea rdi, [rsp+16]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+8]"
+	    "mov rsi, [rsi]"
+	    "mov rax, 90"
 	    "syscall");
 }
 
 
 int fchmod(int a, mode_t b)
 {
-	asm("lea_rdi,[rsp+DWORD] %16"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %8"
-	    "mov_rsi,[rsi]"
-	    "mov_rax, %91"
+	asm("lea rdi, [rsp+16]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+8]"
+	    "mov rsi, [rsi]"
+	    "mov rax, 91"
 	    "syscall");
 }
 
 
 int mkdir(char const* a, mode_t b)
 {
-	asm("lea_rdi,[rsp+DWORD] %16"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %8"
-	    "mov_rsi,[rsi]"
-	    "mov_rax, %83"
+	asm("lea rdi, [rsp+16]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+8]"
+	    "mov rsi, [rsi]"
+	    "mov rax, 83"
 	    "syscall");
 }
 
 
 int mknod(char const* a, mode_t b, dev_t c)
 {
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %133"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 133"
 	    "syscall");
 }
 
 
 mode_t umask(mode_t m)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %95"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 95"
 	    "syscall");
 }
 #endif

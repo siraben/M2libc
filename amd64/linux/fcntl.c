@@ -34,13 +34,13 @@
 
 int _open(char* name, int flag, int mode)
 {
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %2"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 2"
 	    "syscall");
 }
 

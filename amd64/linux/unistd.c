@@ -26,27 +26,27 @@ void* malloc(unsigned size);
 
 int access(char* pathname, int mode)
 {
-	asm("lea_rdi,[rsp+DWORD] %16"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %8"
-	    "mov_rsi,[rsi]"
-	    "mov_rax, %21"
+	asm("lea rdi, [rsp+16]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+8]"
+	    "mov rsi, [rsi]"
+	    "mov rax, 21"
 	    "syscall");
 }
 
 int chdir(char* path)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %80"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 80"
 	    "syscall");
 }
 
 int fchdir(int fd)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %81"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 81"
 	    "syscall");
 }
 
@@ -54,8 +54,8 @@ void _exit(int value);
 
 int fork()
 {
-	asm("mov_rax, %57"
-	    "mov_rdi, %0"
+	asm("mov rax, 57"
+	    "mov rdi, 0"
 	    "syscall");
 }
 
@@ -63,101 +63,101 @@ int fork()
 int waitpid (int pid, int* status_ptr, int options)
 {
 	/* Uses wait4 with struct rusage *ru set to NULL */
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_r10, %0"
-	    "mov_rax, %61"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov r10, 0"
+	    "mov rax, 61"
 	    "syscall");
 }
 
 
 int execve(char* file_name, char** argv, char** envp)
 {
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %59"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 59"
 	    "syscall");
 }
 
 int read(int fd, char* buf, unsigned count)
 { /*maybe*/
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %0"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 0"
 	    "syscall");
 }
 
 int write(int fd, char* buf, unsigned count)
 {/*maybe*/
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %1"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 1"
 	    "syscall");
 }
 
 int lseek(int fd, int offset, int whence)
 {
-	asm("lea_rdi,[rsp+DWORD] %24"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %16"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %8"
-	    "mov_rdx,[rdx]"
-	    "mov_rax, %8"
+	asm("lea rdi, [rsp+24]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+16]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+8]"
+	    "mov rdx, [rdx]"
+	    "mov rax, 8"
 	    "syscall");
 }
 
 
 int close(int fd)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %3"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 3"
 	    "syscall");
 }
 
 
 int unlink (char* filename)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %87"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 87"
 	    "syscall");
 }
 
 int symlink(char *path1, char *path2)
 {
-	asm("lea_rdi,[rsp+DWORD] %16"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %8"
-	    "mov_rsi,[rsi]"
-	    "mov_rax, %88"
+	asm("lea rdi, [rsp+16]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+8]"
+	    "mov rsi, [rsi]"
+	    "mov rax, 88"
 	    "syscall");
 }
 
 int _getcwd(char* buf, int size)
 {
-	asm("lea_rdi,[rsp+DWORD] %16"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %8"
-	    "mov_rsi,[rsi]"
-	    "mov_rax, %79"
+	asm("lea rdi, [rsp+16]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+8]"
+	    "mov rsi, [rsi]"
+	    "mov rax, 79"
 	    "syscall");
 }
 
@@ -184,63 +184,63 @@ char* get_current_dir_name()
 
 int brk(void *addr)
 {
-	asm("mov_rax,[rsp+DWORD] %8"
-	    "push_rax"
-	    "mov_rax, %12"
-	    "pop_rbx"
-	    "mov_rdi,rbx"
+	asm("mov rax, [rsp+8]"
+	    "push rax"
+	    "mov rax, 12"
+	    "pop rbx"
+	    "mov rdi, rbx"
 	    "syscall");
 }
 
 int uname(struct utsname* unameData)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %63"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 63"
 	    "syscall");
 }
 
 int unshare(int flags)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %272"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 272"
 	    "syscall");
 }
 
 int geteuid()
 {
-	asm("mov_rax, %107"
+	asm("mov rax, 107"
 	    "syscall");
 }
 
 int getegid()
 {
-	asm("mov_rax, %108"
+	asm("mov rax, 108"
 	    "syscall");
 }
 
 int mount(char *source, char *target, char *filesystemtype, SCM mountflags, void *data)
 {
-	asm("lea_rdi,[rsp+DWORD] %40"
-	    "mov_rdi,[rdi]"
-	    "lea_rsi,[rsp+DWORD] %32"
-	    "mov_rsi,[rsi]"
-	    "lea_rdx,[rsp+DWORD] %24"
-	    "mov_rdx,[rdx]"
-	    "lea_r10,[rsp+DWORD] %16"
-	    "mov_r10,[r10]"
-	    "lea_r8,[rsp+DWORD] %8"
-	    "mov_r8,[r8]"
-	    "mov_rax, %165"
+	asm("lea rdi, [rsp+40]"
+	    "mov rdi, [rdi]"
+	    "lea rsi, [rsp+32]"
+	    "mov rsi, [rsi]"
+	    "lea rdx, [rsp+24]"
+	    "mov rdx, [rdx]"
+	    "lea r10, [rsp+16]"
+	    "mov r10, [r10]"
+	    "lea r8, [rsp+8]"
+	    "mov r8, [r8]"
+	    "mov rax, 165"
 	    "syscall");
 }
 
 int chroot(char *path)
 {
-	asm("lea_rdi,[rsp+DWORD] %8"
-	    "mov_rdi,[rdi]"
-	    "mov_rax, %161"
+	asm("lea rdi, [rsp+8]"
+	    "mov rdi, [rdi]"
+	    "mov rax, 161"
 	    "syscall");
 }
 
